@@ -1,0 +1,55 @@
+# Türkçe kelime listesi
+kelimeler = [
+    "kalem", "kitap", "araba", "deniz",
+    "bulut", "çiçek", "güneş", "müzik",
+    "orman", "limon", "biber", "simit",
+    "ekmek", "şehir", "renkli", "bahçe",
+    "kedi̇m", "masa", "üzgün"
+]
+
+# Rastgele kelime seçimi
+gizli_kelime = random.choice(kelimeler)
+
+print("\n🎮 TÜRKÇE WORDLE OYUNUNA HOŞ GELDİN!")
+print("5 harfli gizli kelimeyi bulmalısın.")
+print("Toplam 6 tahmin hakkın var.\n")
+
+print("🟩 Doğru harf, doğru yer")
+print("🟨 Doğru harf, yanlış yer")
+print("⬜ Kelimede olmayan harf")
+
+# Oyuncunun tahmin hakları
+for hak in range(6):
+
+    tahmin = input("\nTahminini yaz: ").strip().lower()
+
+    if len(tahmin) != 5:
+        print("Lütfen 5 harfli bir kelime gir!")
+        continue
+
+    sonuc = ["⬜"] * 5
+    kalan = list(gizli_kelime)
+
+    # Doğru yerdeki harfleri kontrol et
+    for i in range(5):
+        if tahmin[i] == gizli_kelime[i]:
+            sonuc[i] = "🟩"
+            kalan[i] = None
+
+    # Yanlış yerdeki harfleri kontrol et
+    for i in range(5):
+        if sonuc[i] != "🟩" and tahmin[i] in kalan:
+            sonuc[i] = "🟨"
+            kalan[kalan.index(tahmin[i])] = None
+
+    print(" ".join(sonuc))
+
+    if tahmin == gizli_kelime:
+        print("\n🎉 TEBRİKLER! KELİMEYİ BULDUN!")
+        break
+
+else:
+    print("\n😔 Tahmin hakların bitti!")
+    print("Gizli kelime:", gizli_kelime)
+
+print("\nOynadığın için teşekkürler!")
